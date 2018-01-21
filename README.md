@@ -1,13 +1,16 @@
-# rtl-sdr
+# Docker-rtl_sdr
 
-A Docker container for building and executing rtl-sdr tools: http://sdr.osmocom.org/trac/wiki/rtl-sdr
+A Docker container for building and executing rtl_sdr tools: http://sdr.osmocom.org/trac/wiki/rtl-sdr
+
+The image is sized-optimized by using a multi-stage build and implements a minimalistic subset of the RTL-SDR toolbox (basically, only rtl_sdr )
 
 # Usage
 
 Obtain the image from the docker hub:
 
-```docker pull bemasher/rtl-sdr```
+```docker pull nicoinn/rtl-sdr```
 
-Run an rtl-sdr tool from the container:
 
-```docker run -d -p 1234:1234 --privileged -v /dev/bus/usb:/dev/bus/usb --name rtl_tcp bemasher/rtl-sdr rtl_tcp -a 0.0.0.0```
+Run an rtl-sdr tool from the container (this will work only on a Linux host):
+
+```docker run --privileged -v /dev/bus/usb:/dev/bus/usb nicoinn/rtl-sdr```
