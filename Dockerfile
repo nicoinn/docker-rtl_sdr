@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine as BUILD_ENV
 
 RUN apk add --no-cache musl-dev gcc make cmake pkgconf git libusb-dev
 
@@ -7,7 +7,17 @@ RUN git clone git://git.osmocom.org/rtl-sdr.git
 
 RUN mkdir /usr/local/rtl-sdr/build
 WORKDIR /usr/local/rtl-sdr/build
-RUN cmake ../ -DDETACH_KERNEL_DRIVER=ON
+RUN cmake ../ -DDETACH_KERNEL_DRIVER=ON -DCMAKE_C_FLAGS="-static-libstdc++"
 RUN make
 RUN make install
+
+FROM alpine
+
+RUN apk add --no-cache libusb
+
+COPY --from=BUILD_ENV /usr/local/rtl-sdr/build/src/rtl_sdr /usr/bin/
+COPY --from=BUILD_ENV /usr/local/rtl-sdr/build/src/librtlsdr.so.0 /usr/local/lib/
+
+ENTRYPOINT ["/usr/bin/rtl_sdr"]
+
 
