@@ -3,7 +3,7 @@ FROM alpine as BUILD_ENV
 RUN apk add --no-cache musl-dev gcc make cmake pkgconf git libusb-dev
 
 WORKDIR /usr/local/
-RUN git clone git://git.osmocom.org/rtl-sdr.git && cd rtl-sdr && git checkout tags/v0.5.3
+RUN git clone git://git.osmocom.org/rtl-sdr.git && cd rtl-sdr && git checkout tags/0.6.0
 
 RUN mkdir /usr/local/rtl-sdr/build
 WORKDIR /usr/local/rtl-sdr/build
