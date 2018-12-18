@@ -18,6 +18,6 @@ RUN apk add --no-cache libusb
 COPY --from=BUILD_ENV /usr/local/rtl-sdr/build/src/rtl_sdr /usr/bin/
 COPY --from=BUILD_ENV /usr/local/rtl-sdr/build/src/librtlsdr.so.0 /usr/local/lib/
 
-#ENTRYPOINT ["/usr/bin/rtl_sdr"]
+ENTRYPOINT ["/usr/bin/rtl_sdr"]
 
 
